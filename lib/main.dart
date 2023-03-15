@@ -1,7 +1,3 @@
-///
-/// Created by Giovanni Terlingen
-/// See LICENSE file for more information.
-///
 import 'package:flutter/material.dart';
 
 import 'map_svg_data.dart';
