@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'map_svg_data.dart';
+import 'body_svg_data.dart';
 
 void main() => runApp(const MyApp());
 
@@ -81,7 +81,7 @@ class MyHomePageState extends State<MyHomePage> {
                     onTap: () => _provincePressed(province),
                     child: Container(
                         color: _pressedProvince == province
-                            ? const Color(0xFF4741A6).withAlpha(90)
+                            ? const Color(0xFF4741A6).withAlpha(900)
                             : Colors.transparent)))
           ])));
     });
@@ -142,6 +142,7 @@ class PathPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     List<Path> paths = getPathByProvince(_province);
+    List<Path> subPaths = getSubPaths();
     List<Path> titlePaths = getPathTitleByProvince(_province);
     RRect titleRRect = getRRectTitleByProvince(_province);
 
@@ -154,7 +155,20 @@ class PathPainter extends CustomPainter {
             ..strokeWidth = 2.0);
     }
 
-    for (var path in paths) {
+    if (_province != Province.neck &&
+        _province != Province.arms &&
+        _province != Province.legs) {
+      for (var path in paths) {
+        canvas.drawPath(
+            path,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..color = const Color(0xFF4741A6)
+              ..strokeWidth = 2.0);
+      }
+    }
+
+    for (var path in subPaths) {
       canvas.drawPath(
           path,
           Paint()
